@@ -69,7 +69,12 @@ function App() {
                 id='password'
                 required
               />
-              <label htmlFor='password' className={styles.formLabel}>
+              <label
+                htmlFor='password'
+                style={{
+                  color: 'green',
+                }}
+                className={styles.formLabel}>
                 Good password!
               </label>
             </div>
@@ -82,7 +87,12 @@ function App() {
                 id='confirmpassword'
                 required
               />
-              <label htmlFor='confirmpassword' className={styles.formLabel}>
+              <label
+                htmlFor='confirmpassword'
+                style={{
+                  color: 'green',
+                }}
+                className={styles.formLabel}>
                 It's ok!
               </label>
             </div>

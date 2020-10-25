@@ -9,6 +9,10 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+
+  @media only screen and (max-width: 400px) {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -36,6 +40,15 @@ body {
   grid-template-rows: 70vh min-content;
   grid-template-columns: [aside-start] minmax(min-content, 30rem)
                          [aside-end content-start] minmax(min-content, 80rem) [content-end];
+
+  @media only screen and (max-width: 400px) {
+    display: grid;
+
+    justify-content: center;
+    align-items: center;
+
+    grid-template-columns: min-content 1fr;
+  }
 }
 
 .aside {
@@ -71,6 +84,10 @@ body {
   border-radius: .25rem;
 
   font-size: 2rem;
+
+  @media only screen and (max-width: 400px) {
+    font-size: 1.5rem;
+  }
 }
 
 .form input:focus {
@@ -92,6 +109,12 @@ body {
 
   background-color: #8000ff;
   color: #fdfef6;
+
+  @media only screen and (max-width: 400px) {
+    width: 100%;
+    padding: 1.2rem;
+
+  }
 }
 
 

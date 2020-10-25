@@ -47,4 +47,16 @@ describe('UsersService', () => {
 
     expect(userService.create).toHaveBeenCalledWith(mockUser);
   });
+
+  it('should be find all users', async () => {
+    const mock = await userService.findAll.mockReturnValue({
+      user1: mockUser,
+      user2: mockUser,
+    });
+
+    await userService.findAll();
+    expect(userService.findAll).toHaveBeenCalled();
+    expect(await userService.findAll).not.toEqual({});
+    expect(await userService.findAll).toEqual(mock);
+  });
 });

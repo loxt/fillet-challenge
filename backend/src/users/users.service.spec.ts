@@ -1,62 +1,61 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 
-const mockUser = {
-  email: 'contrataeulogo@gmail.com',
-  firstName: 'Contrata o',
-  id: '777',
-  lastName: 'Loxt',
-  password: '123456',
-  confirmPassword: '123456',
-  phone: '996944782',
-};
-
-const mockUserRepository = () => ({
-  findAll: jest.fn(),
-  findOne: jest.fn(),
-  create: jest.fn(),
-});
-
 describe('UsersService', () => {
-  let userService;
+  let service: UsersService;
+  let mockUser;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: UsersService,
-          useFactory: mockUserRepository,
+          useFactory: () => ({ create: jest.fn() }),
         },
       ],
     }).compile();
 
-    userService = await module.get<UsersService>(UsersService);
+    service = await module.get<UsersService>(UsersService);
+
+    mockUser = {
+      email: 'contrataeulogo@gmail.com',
+      firstName: 'Contrata o',
+      id: '777',
+      lastName: 'Loxt',
+      password: '123456',
+      confirmPassword: '123456',
+      phone: '996944782',
+    };
   });
 
   it('should be defined', () => {
-    expect(userService).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should be call the create user function', async () => {
-    await userService.create.mockReturnValue(mockUser);
+    await expect(service.create).not.toHaveBeenCalled();
 
-    await expect(userService.create).not.toHaveBeenCalled();
+    (service.create as jest.Mock).mockReturnValue(mockUser);
 
-    userService.create(mockUser);
-    expect(userService.create).toHaveBeenCalled();
-
-    expect(userService.create).toHaveBeenCalledWith(mockUser);
+    await expect(service.create).resolves;
   });
 
-  it('should be find all users', async () => {
-    const mock = await userService.findAll.mockReturnValue({
-      user1: mockUser,
-      user2: mockUser,
+  it('should be call the create user function twice times', async () => {
+    await expect(service.create).not.toHaveBeenCalled();
+
+    (service.create as jest.Mock).mockReturnValue(mockUser);
+
+    await service.create(mockUser);
+    await service.create({
+      email: 'contrataeulogo2@gmail.com',
+      firstName: 'Contrata o',
+      id: '777',
+      lastName: 'Loxt',
+      password: '123456',
+      confirmPassword: '123456',
+      phone: '996944782',
     });
 
-    await userService.findAll();
-    expect(userService.findAll).toHaveBeenCalled();
-    expect(await userService.findAll).not.toEqual({});
-    expect(await userService.findAll).toEqual(mock);
+    await expect(service.create).toHaveBeenCalledTimes(2);
   });
 });

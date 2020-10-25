@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './App.module.css';
+import styles from './styles.module.css';
 
 function App() {
   return (
@@ -10,12 +10,82 @@ function App() {
           <h1>Sign up</h1>
 
           <div className={styles.form}>
-            <input type='text' placeholder='First name' />
-            <input type='text' placeholder='Last name' />
-            <input type='text' placeholder='Phone' />
-            <input type='email' placeholder='E-mail' />
-            <input type='password' placeholder='Password' />
-            <input type='password' placeholder='Confirme Password' />
+            <div className={styles.formGroup}>
+              <input
+                type='text'
+                placeholder='First name'
+                className={styles.formInput}
+                id='firstname'
+                required
+              />
+              <label htmlFor='firstname' className={styles.formLabel}>
+                First name
+              </label>
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type='text'
+                placeholder='Last name'
+                className={styles.formInput}
+                id='lastname'
+                required
+              />
+              <label htmlFor='lastname' className={styles.formLabel}>
+                Last name
+              </label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input
+                type='text'
+                placeholder='Phone'
+                className={styles.formInput}
+                id='phone'
+                required
+              />
+              <label htmlFor='phone' className={styles.formLabel}>
+                Phone
+              </label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input
+                type='email'
+                placeholder='E-mail'
+                className={styles.formInput}
+                id='email'
+                required
+              />
+              <label htmlFor='email' className={styles.formLabel}>
+                E-mail
+              </label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input
+                type='password'
+                placeholder='Password'
+                className={styles.formInput}
+                id='password'
+                required
+              />
+              <label htmlFor='password' className={styles.formLabel}>
+                Good password!
+              </label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input
+                type='password'
+                placeholder='Confirm Password'
+                className={styles.formInput}
+                id='confirmpassword'
+                required
+              />
+              <label htmlFor='confirmpassword' className={styles.formLabel}>
+                It's ok!
+              </label>
+            </div>
           </div>
 
           <button type='button'>Create account</button>

@@ -59,7 +59,7 @@ body {
   grid-template-rows: repeat(3, minmax(min-content, max-content));
   grid-template-columns: repeat(2, minmax(min-content, 1fr));
   grid-column-gap: 2.5rem;
-  grid-row-gap: 10rem;
+  grid-row-gap: 5rem;
 
   margin-top: 2.5rem;
 }
@@ -93,4 +93,49 @@ body {
 
   background-color: #8000ff;
   color: #fdfef6;
+}
+
+
+.formInput {
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-bottom: 3px solid transparent;
+  width: 90%;
+  display: block;
+  transition: all .3s;
+}
+
+.formInput:focus {
+  outline: none;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #55c57a;
+}
+
+.formInput:focus:invalid {
+  border-bottom: 3px solid #ff7730;
+}
+
+.formInput::-webkit-input-placeholder, .formInput::-moz-placeholder {
+  color: #999;
+}
+
+.formLabel {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-left: 2rem;
+  margin-top: .7rem;
+  display: block;
+  transition: all .3s;
+  color: #999;
+}
+
+.formInput:placeholder-shown + .formLabel {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4rem);
 }

@@ -34,13 +34,12 @@ body {
   margin-top: 15vh;
 
   grid-template-rows: 70vh min-content;
-  grid-template-columns: [aside-start] minmax(min-content, 35rem)
+  grid-template-columns: [aside-start] minmax(min-content, 30rem)
                          [aside-end content-start] minmax(min-content, 80rem) [content-end];
 }
 
 .aside {
   background-color: #8000ff;
-
 }
 
 
@@ -85,7 +84,7 @@ body {
 .content button {
   margin-top: 5rem;
 
-  width: 34rem;
+  width: 27.8rem;
   height: 8%;
   border: none;
   font-size: 2rem;

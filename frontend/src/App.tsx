@@ -1,22 +1,78 @@
-import React, { useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styles from './styles.module.css';
+import { gql, useMutation } from '@apollo/client';
 import api from './config/api';
-import { gql } from '@apollo/client';
+
+const USER_MUTATION = gql`
+  mutation User(
+    $firstName: String!
+    $lastName: String!
+    $phone: String!
+    $email: String!
+    $password: String!
+    $confirmPassword: String!
+  ) {
+    createUser(
+      createUserInput: {
+        firstName: $firstName
+        lastName: $lastName
+        phone: $phone
+        email: $email
+        password: $password
+        confirmPassword: $confirmPassword
+      }
+    ) {
+      firstName
+      lastName
+      email
+    }
+  }
+`;
 
 function App() {
-  useEffect(() => {
-    api
-      .query({
-        query: gql`
-          query User {
-            users {
-              firstName
-            }
-          }
-        `,
-      })
-      .then((result) => console.log(result.data.users));
-  }, []);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [createUser, { loading, error }] = useMutation(USER_MUTATION, {
+    client: api,
+  });
+
+  async function submitForm(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (
+      (firstName ||
+        lastName ||
+        phone ||
+        email ||
+        password ||
+        confirmPassword) != null
+    ) {
+      try {
+        const res = await createUser({
+          variables: {
+            firstName,
+            lastName,
+            phone,
+            email,
+            password,
+            confirmPassword,
+          },
+        });
+
+        if (error) return alert(error.name);
+        if (loading) return;
+
+        alert(`E-mail ${res.data.createUser.email} criado!`);
+        window.location.reload();
+      } catch (e) {
+        alert(e.message);
+      }
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -25,13 +81,15 @@ function App() {
         <div className={styles.content}>
           <h1>Sign up</h1>
 
-          <div className={styles.form}>
+          <form className={styles.form} onSubmit={submitForm}>
             <div className={styles.formGroup}>
               <input
                 type='text'
                 placeholder='First name'
                 className={styles.formInput}
                 id='firstname'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 required
               />
               <label htmlFor='firstname' className={styles.formLabel}>
@@ -43,6 +101,8 @@ function App() {
                 type='text'
                 placeholder='Last name'
                 className={styles.formInput}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 id='lastname'
                 required
               />
@@ -55,6 +115,8 @@ function App() {
               <input
                 type='text'
                 placeholder='Phone'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className={styles.formInput}
                 id='phone'
                 required
@@ -69,6 +131,8 @@ function App() {
                 type='email'
                 placeholder='E-mail'
                 className={styles.formInput}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 id='email'
                 required
               />
@@ -82,6 +146,8 @@ function App() {
                 type='password'
                 placeholder='Password'
                 className={styles.formInput}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 id='password'
                 required
               />
@@ -101,6 +167,8 @@ function App() {
                 placeholder='Confirm Password'
                 className={styles.formInput}
                 id='confirmpassword'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
               <label
@@ -112,9 +180,8 @@ function App() {
                 It's ok!
               </label>
             </div>
-          </div>
-
-          <button type='button'>Create account</button>
+            <button type='submit'>Create account</button>
+          </form>
         </div>
       </main>
     </div>

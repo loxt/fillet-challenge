@@ -1,0 +1,43 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User
+}
+
+type Query {
+  user(id: Int!): User
+  users: [User!]
+}
+
+type User {
+  "E-mail"
+  email: String!
+  "Primeiro nome"
+  firstName: String!
+  "Último nome"
+  lastName: String!
+  "Senha"
+  password: String!
+  "Número de celular"
+  phone: String!
+}
+
+input CreateUserInput {
+  "Confirme a senha"
+  confirmPassword: String!
+  "E-mail"
+  email: String!
+  "Primeiro nome"
+  firstName: String!
+  "Último nome"
+  lastName: String!
+  "Senha"
+  password: String!
+  "Número de celular"
+  phone: String!
+}

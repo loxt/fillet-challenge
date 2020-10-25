@@ -82,11 +82,17 @@ body {
   font-size: 2rem;
   font-weight: 300;
   background-color: #8000ff;
-  color: #fdfef6; }
+  transition: all .2s;
+  color: #fdfef6;
+  cursor: pointer; }
   @media only screen and (max-width: 400px) {
     .content button {
       width: 100%;
       padding: 1.2rem; } }
+  .content button:hover {
+    background-color: #6401ca; }
+  .content button:focus {
+    outline: none; }
 
 .formInput {
   font-size: 1.5rem;

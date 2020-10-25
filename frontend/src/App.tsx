@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.css';
+import api from './config/api';
+import { gql } from '@apollo/client';
 
 function App() {
+  useEffect(() => {
+    api
+      .query({
+        query: gql`
+          query User {
+            users {
+              firstName
+            }
+          }
+        `,
+      })
+      .then((result) => console.log(result.data.users));
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.container}>
